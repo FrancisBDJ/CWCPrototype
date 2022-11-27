@@ -6,57 +6,59 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private int _health;
-    [SerializeField] private int _score;
-    [SerializeField] private int _level;
+    public static GameManager instance;
+    private bool win = false;
+    private int health;
+    private int score = 0;
+    private int level = 0;
+    
+    //Cached references
     [SerializeField] private Slider _healthBar;
     [SerializeField] private TextMeshProUGUI _txtScore;
 
     public void AddPoints()
     {
-        _score ++;
-        _txtScore.text = "Score: " + _score * 100 + "pts";
+        score ++;
+        _txtScore.text = "Score: " + score * 100 + "pts";
     }
     
 
 
     public void TakeDamage(int damage)
     {
-        
-        _health = _health - damage;
-        _healthBar.value = _health;
-        
+        health = health - damage;
+        _healthBar.value = health;
+    }
+    
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
     // Start is called before the first frame update
     void Start()
     {
-        if (_level == 2)
-        {
-            _health = _health;
-            _score = _score;
-            
-        }
-        
-        if (_level == 3)
-        {
-            _health = _health;
-            _score = _score;
-            
-        }
+       InitLevel();
+    }
 
-        else
-        {
-            _health = 300;
-            _score = 0;
-            _level = 1;
-        }
-        
+    private void InitLevel()
+    {
+        win = false;
+        health = 300;
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_health < 0)
+        if (health < 0)
         {
             Time.timeScale = 0;
         }

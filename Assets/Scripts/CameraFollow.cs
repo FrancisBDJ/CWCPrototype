@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     private Vector3 offset3rdCam = new Vector3(0, 5.0f, -10.0f);
     
     
-    private Vector3 offset1stCam = new Vector3(0, 0.5f, 2f);
+    private Vector3 offset1stCam = new Vector3(0, 1f, 2f);
 
     private void Start()
     {

@@ -23,14 +23,14 @@ public class CollectStar : MonoBehaviour
             AudioSource.PlayClipAtPoint(collectSound, transform.position);
         if(collectEffect)
             Instantiate(collectEffect, transform.position, Quaternion.identity);
-        Destroy (gameObject);
+        Destroy(gameObject);
     }
     
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("tocado");
+           
             // Add points
             Collect();
             _gameManager.AddPoints();

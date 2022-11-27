@@ -9,10 +9,27 @@ public class EnemyHitsPlayer : MonoBehaviour
     
     private GameManager _gameManager;
     
+    public AudioClip _crashSound;
+
+    public GameObject _crashEffect;
+    
     void Start()
     {
         
         _gameManager = FindObjectOfType<GameManager>();
+    }
+    
+    public void Crash()
+    {
+        if (_crashSound)
+        { 
+            AudioSource.PlayClipAtPoint(_crashSound, transform.position); 
+        }
+
+        if (_crashEffect)
+        {
+            Instantiate(_crashEffect, transform.position, Quaternion.identity);
+        }
     }
 
     private void Update()
@@ -25,6 +42,10 @@ public class EnemyHitsPlayer : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             _gameManager.TakeDamage(_damageAmount);
+            Crash();
+            
+            float lifetime = 1.5f;
+            Destroy(gameObject, lifetime);
         }
     }
 }
