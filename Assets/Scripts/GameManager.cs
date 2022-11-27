@@ -30,9 +30,27 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _health = 100;
-        _score = 0;
-        _level = 1;
+        if (_level == 2)
+        {
+            _health = _health;
+            _score = _score;
+            
+        }
+        
+        if (_level == 3)
+        {
+            _health = _health;
+            _score = _score;
+            
+        }
+
+        else
+        {
+            _health = 300;
+            _score = 0;
+            _level = 1;
+        }
+        
     }
 
     // Update is called once per frame
