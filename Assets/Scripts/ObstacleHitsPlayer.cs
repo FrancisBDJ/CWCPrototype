@@ -33,5 +33,10 @@ public class ObstacleHitsPlayer : MonoBehaviour
             
             Destroy(gameObject, lifetime);
         }
+        
+        if (collision.gameObject.CompareTag("Start"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
