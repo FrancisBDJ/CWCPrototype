@@ -9,9 +9,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool win = false;
+    public bool paused = false;
     private int health;
     private int score = 0;
     private int level = 0;
+    
+    //private GameManager _gameManager;
+    private PlayerMovement _playerMovement;
     
     //Cached references
     [SerializeField] private TextMeshProUGUI _txtWinMessage;
@@ -56,16 +60,43 @@ public class GameManager : MonoBehaviour
     void Start()
     {
        InitLevel();
+       
     }
 
-    private void InitLevel()
+    public void InitLevel()
     {
         win = false;
+        paused = false;
+        _playerMovement = FindObjectOfType<PlayerMovement>();
         _txtWinMessage.gameObject.SetActive(false);
         _btnNext.gameObject.SetActive(false);
         _btnQuit.gameObject.SetActive(false);
         health = 300;
         Time.timeScale = 1.0f;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+
+    private void PauseGame()
+    {
+        if (paused == false)
+        {
+            paused = true;
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            _playerMovement.enabled = false;
+        }
+
+        else
+        {
+            paused = false;
+            Time.timeScale = 1;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            _playerMovement.enabled = true;
+        }
     }
 
     private void EndLevel(string message)
@@ -83,7 +114,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PauseGame();
+        }
 
         if (win == true)
         {

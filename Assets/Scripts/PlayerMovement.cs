@@ -21,10 +21,16 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(Vector3.forward * Time.deltaTime * 20);
         }
         
-        if (Input.GetKey(KeyCode.S))
+        /*if (Input.GetAxisRaw("Y Axis") != 0)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * 20);
+        }*/
+        
+        if (Input.GetKey(KeyCode.S)) 
         {
             transform.Translate(Vector3.back  * Time.deltaTime * 10);
         }
+        
         
         float rotationAngle = Input.GetAxis("Mouse X");
         
