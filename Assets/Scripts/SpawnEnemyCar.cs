@@ -5,9 +5,11 @@ using UnityEngine;
 public class SpawnEnemyCar : MonoBehaviour
 {
     [SerializeField] private GameObject enemyCarPrefab;
+    [SerializeField] private GameObject RefObject;
     
     private float timer = 0.0f;
-    private float enemyCarSpawnFrequency = 4f;
+    private float enemyCarSpawnFrequency = 5f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class SpawnEnemyCar : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > enemyCarSpawnFrequency)
         {
-            Instantiate(enemyCarPrefab, transform.position, Quaternion.identity);
+            Instantiate(enemyCarPrefab, RefObject.transform.position, RefObject.transform.rotation);
             timer = 0f;
         }
     }

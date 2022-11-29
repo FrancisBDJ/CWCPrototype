@@ -47,5 +47,11 @@ public class EnemyHitsPlayer : MonoBehaviour
             float lifetime = 1.5f;
             Destroy(gameObject, lifetime);
         }
+
+        if (collision.gameObject.CompareTag("Start"))
+        {
+            float lifetime = 0.5f;
+            Destroy(gameObject, lifetime);
+        }
     }
 }

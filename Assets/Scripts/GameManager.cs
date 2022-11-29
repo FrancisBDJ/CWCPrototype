@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private int level = 0;
     
     //private GameManager _gameManager;
+    public GameOverManager _gameOverManager;
     private PlayerMovement _playerMovement;
     
     //Cached references
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button _btnQuit;
     [SerializeField] private Slider _healthBar;
     [SerializeField] private TextMeshProUGUI _txtScore;
+    [SerializeField] private TextMeshProUGUI _txtPaused;
 
     public void AddPoints()
     {
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
        InitLevel();
+           _gameOverManager = FindObjectOfType<GameOverManager>();
        
     }
 
@@ -71,7 +74,9 @@ public class GameManager : MonoBehaviour
         _txtWinMessage.gameObject.SetActive(false);
         _btnNext.gameObject.SetActive(false);
         _btnQuit.gameObject.SetActive(false);
+        _txtPaused.gameObject.SetActive(false);
         health = 300;
+        _healthBar.value = health;
         Time.timeScale = 1.0f;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -86,6 +91,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            _txtPaused.gameObject.SetActive(true);
             _playerMovement.enabled = false;
         }
 
@@ -95,6 +101,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            _txtPaused.gameObject.SetActive(false);
             _playerMovement.enabled = true;
         }
     }
