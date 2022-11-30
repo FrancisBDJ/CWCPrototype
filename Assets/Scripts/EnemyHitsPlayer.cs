@@ -50,7 +50,7 @@ public class EnemyHitsPlayer : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Start"))
         {
-            float lifetime = 0.5f;
+            float lifetime = 0.25f;
             Destroy(gameObject, lifetime);
         }
     }

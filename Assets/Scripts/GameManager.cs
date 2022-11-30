@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     private int level = 0;
     
     //private GameManager _gameManager;
-    public GameOverManager _gameOverManager;
+    
     private PlayerMovement _playerMovement;
     
     //Cached references
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
        InitLevel();
-           _gameOverManager = FindObjectOfType<GameOverManager>();
+           
        
     }
 
@@ -105,6 +106,15 @@ public class GameManager : MonoBehaviour
             _playerMovement.enabled = true;
         }
     }
+    
+    public void QuitGame()
+    {
+    #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+    #else
+            Application.Quit();
+    #endif
+    }
 
     private void EndLevel(string message)
     {
@@ -112,6 +122,8 @@ public class GameManager : MonoBehaviour
         _btnNext.gameObject.SetActive(true);
         _btnQuit.gameObject.SetActive(true);
         _txtWinMessage.text = message;
+        _btnQuit.onClick.AddListener(QuitGame);
+        //_btnNext.onClick.AddListener();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 

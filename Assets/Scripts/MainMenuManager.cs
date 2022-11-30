@@ -41,7 +41,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void LoadLastGame()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("Level");
     }
 
     private void LoadOptionsMenu()
